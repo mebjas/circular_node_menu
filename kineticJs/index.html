@@ -1,0 +1,98 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <style>
+      body {
+        margin: 0px;
+        padding: 0px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container"></div>
+    <script src="js/kinetic-v4.7.2.min.js"></script>
+    <script defer="defer">
+      var stage = new Kinetic.Stage({
+        container: 'container',
+        width: 1000,
+        height: 500
+      });
+
+      var layer = new Kinetic.Layer();
+
+      var circle = new Kinetic.Circle({
+        x: 200,
+        y: 300,
+        radius: 60,
+        stroke: 'black',
+        strokeWidth: 2,
+		draggable: true
+      });
+	  var circle2 = new Kinetic.Circle({
+        x: 200,
+        y: 300,
+        radius: 160,
+        stroke: 'black',
+        strokeWidth: 2
+      });
+		var arc1 = new Kinetic.Shape({
+        drawFunc: function(context) {
+          context.beginPath();
+          context.moveTo(200, 300);
+		  context.arc(200,300,120,-Math.PI / 6 , Math.PI /6,false);
+          context.closePath();
+          // KineticJS specific context method
+		  context.fillStrokeShape(this);
+        },
+        stroke: 'black',
+        strokeWidth: 2
+      });
+	  var arc1_ = new Kinetic.Shape({
+        drawFunc: function(context) {
+          context.beginPath();
+          context.moveTo(200, 300);
+		  context.arc(200,300,124,-Math.PI / 6 , Math.PI /6,false);
+          context.closePath();
+          // KineticJS specific context method
+		  context.fillStrokeShape(this);
+        },
+        stroke: 'black',
+        strokeWidth: 2
+      });
+	  var arc2 = new Kinetic.Shape({
+        drawFunc: function(context) {
+          context.beginPath();
+          context.moveTo(200 + 160*Math.cos(Math.PI / 3 ), 300 - 160*Math.sin(-Math.PI / 3 ));
+		  context.arc(200,300,160,-Math.PI / 6 , Math.PI /3,false);
+          context.closePath();
+          // KineticJS specific context method
+		  context.fillStrokeShape(this);
+        },
+        stroke: 'black',
+        strokeWidth: 2
+      });
+	  var arc2_ = new Kinetic.Shape({
+        drawFunc: function(context) {
+          context.beginPath();
+          context.moveTo(200 + 164*Math.cos(Math.PI / 3 ), 300 - 164*Math.sin(-Math.PI / 3 ));
+		  context.arc(200,300,164,-Math.PI / 6 , Math.PI /3,false);
+          context.closePath();
+          // KineticJS specific context method
+		  context.fillStrokeShape(this);
+        },
+        stroke: 'black',
+        strokeWidth: 2
+      });
+	  
+      // add the shape to the layer
+      layer.add(circle);
+	  layer.add(arc1);
+	  layer.add(arc1_);
+	  layer.add(arc2);
+	  layer.add(arc2_);
+
+      // add the layer to the stage
+      stage.add(layer);
+    </script>
+  </body>
+</html>
