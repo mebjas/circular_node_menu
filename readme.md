@@ -3,9 +3,9 @@ Canvas based menu
 > a circular dial type menu with nodes where items can be added
 > can be used wit simeple functions like addItem() deleteItem() etc
 
-
-** HTML <div> based menu **
-==========================================
+<br><br>
+ HTML <div> based menu 
+<br><br>
 >menu_code1.htm canvas outline<br>
 >menu_html_done1.htm circular knob rotating on mouse hover<br>
 >menu_html_done2.htm circular knob such that you can add sub nodes to it on button click<br>
