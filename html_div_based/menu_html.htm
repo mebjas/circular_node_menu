@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>circular menu</title>
+<script src="js/jquery.js"></script>
+<script>
+var x = 350;
+var y = 300;
+var deg = 0;
+var flag = 0;
+
+function rotate(e){
+//		console.log(e.clientX+","+e.clientY);
+		$("#node_1,#node_2").clearQueue();
+		var dx = e.clientX - x;
+		var dy = e.clientY - y;
+		var theta = Math.atan(dy/dx);
+		var deg = 180 / Math.PI * theta;
+		if(dx < 0 && dy < 0)
+		{
+			//2nd quad
+		}
+		else if((dx > 0 && dy < 0)||(dx > 0 && dy > 0))
+		{
+			//1st quad or 4th quad
+			deg = 180 + deg;
+		}
+		else
+		{
+			//3rd quad
+			deg = 360 + deg;
+		}
+		$("#node_1").css("-webkit-transform","rotate(" +(deg) +"deg)");
+		if(flag)$("#node_2").css("-webkit-transform","rotate(" +(-360 + deg) +"deg)");
+		else $("#node_2").css("-webkit-transform","rotate(" +deg +"deg)");
+		//,#node_2
+		if(flag)flag--;
+		else flag++;
+		return;
+}
+var width = 300;
+//236
+//var d = 500;
+var node = new Array();
+function addNode()
+{
+	var tmp;
+	var pos = node.length;
+	node[pos] = new Array();
+	if(pos%2)
+	{
+		node[pos][0] = (parseInt(pos/2) + 1)*15;
+	}
+	else node[pos][0] = parseInt(pos/2) * -15;
+	/*
+		0 corresponds to angle with horizontal
+	*/	
+	node[pos][1] = x + width*Math.cos(node[pos][0]*Math.PI/180);
+	// x - coordinate of end1
+	node[pos][2] = y + width*Math.sin(node[pos][0]*Math.PI/180);
+	// y - coordinate of end1
+	var d = 400 + Math.floor(Math.random()*300);
+	/* for generating bars of random length */
+	node[pos][3] = x + d - node[pos][1];
+	//	width of required straight line
+	node[pos][4] = x + (width*.5)*(Math.cos(node[pos][0]*Math.PI/180) - 1);
+	// value of left attribute
+	node[pos][5] = y + (width*.5)*(Math.sin(node[pos][0]*Math.PI/180));
+	// value of top attribute
+	var id = "line_" +(pos+1);
+	var id_ = "line_extra_" +(pos+1);
+	var item_id = "item_" +(pos+1);
+	var box_id = "box_" +(pos+1);
+	$("body").append("<div style='display: none' id='" +box_id +"'><div id='" +id +"' class='line'></div><div id='" +id_ +"' class='line'></div><div id='" +item_id +"' class='item'>Item no " +(pos+1) +"</div></div>");
+	$("#" +id).css("top",node[pos][5] +"px");
+	$("#" +id).css("left",node[pos][4] +"px");
+	$("#" +id).css("width",width +"px");
+	$("#" +id).css("-webkit-transform","rotate(" +node[pos][0] +"deg)");
+	$("#" +id_).css("top",node[pos][2] +"px");
+	$("#" +id_).css("left",node[pos][1] +"px");
+	$("#" +id_).css("width",node[pos][3] +"px");
+	$("#" +item_id).css("top",(node[pos][2]-25) +"px");
+	$("#" +item_id).css("left",x+d +"px");
+	$("#" +box_id).fadeIn("slow");
+	console.log("#" +box_id);
+	
+}
+function node3zoom()
+{
+	$("#node_3").addClass("itembig");
+}
+</script> 
+<style type="text/css">
+.rotated{-webkit-transform: rotate(180deg);}
+body{overflow: hidden;background-image: url(GOT.jpg);min-height: 100%;min-width: 100%;height: 600px}
+.absolute{position: absolute}
+#node{
+	background: white;
+	opacity: .7;
+	width: 100px;
+	height: 100px;
+	border-radius: 50px;
+	left: 300px;
+	top: 250px;
+	z-index: 15;
+}
+#node_1{
+	background: black;
+	opacity: .5;
+	width: 160px;
+	height: 160px;
+	border-radius: 90px;
+	top: 210px;
+	left: 260px;
+	z-index: 14;
+	border: 10px solid red;
+	border-left: 10px solid black;
+	-webkit-transition: -webkit-transform .7s;
+}
+#node_2{
+	background:white;
+	opacity: .5;
+	width: 230px;
+	height: 230px;
+	border-radius:  125px;
+	top: 175px;
+	left: 225px;
+	border: 10px solid white;
+	border-left: 10px solid red;
+	z-index: 13;
+	-webkit-transition: -webkit-transform .7s;
+}
+#node_3{
+	background:black;
+	opacity: .5;
+	width: 280px;
+	height: 280px;
+	border-radius:  150px;
+	top: 150px;
+	left: 200px;
+	z-index: 12;
+	border: 10px solid black;
+	border-right: 10px solid white;
+	-webkit-transition: width .4s ease-out,height .4s ease-out,border-radius  .4s ease-out,top .4s ease-out,left .4s ease-out;
+}
+#node_3:hover,.itembig{
+	cursor: pointer;
+	width: 330px;
+	height: 330px;
+	border-radius:  175px;
+	top: 125px;
+	left: 175px;
+}
+.line{
+	background-image: url(line.png);
+	width: 236px;
+	height: 9px;
+	color: white;
+	position: absolute;
+	top: 100px;
+	left: 100px;
+	z-index: 10;
+}
+.item
+{
+	width: 200px;
+	position: absolute;
+	height: 30px;
+	padding: 8px;
+	background: black;
+	color: white;
+	opacity: .7;
+	text-align: center;
+	border: 1px solid white;
+	z-index: 11;
+	-webkit-transition: width .2s ease-out,border-color .7s,opacity .7s,color .7s,-webkit-transform .2s ease-out;
+}
+.item:hover{
+	cursor: pointer;
+	opacity: 1;
+	color: yellow;
+	border-color: orange;
+	width: 250px;
+	-webkit-transform: translate(-50px,0px);
+	z-index: 18;
+}
+.item:hover>#node_3{background: red}
+#node_4{
+	width: 480px;
+	height: 480px;
+	border: none;
+	border-right: 10px solid red;
+	opacity: .5;
+	background: none;
+	border-radius: 250px;
+	top: 50px;
+	left: 100px;
+	-webkit-transition: -webkit-transform .2s ease-out,opacity .2s ease-out;
+	z-index: 21;
+}
+#node_4:hover{
+	-webkit-transform: scale(2);
+	opacity: .05;
+	border: 10px solid red;
+}
+</style>
+<!-- rotate(event) -->
+<body onmousemove="rotate(event)">
+	<div id="node" class="absolute"></div>
+	<div id="node_1" class="absolute"></div>
+	<div id="node_2" class="absolute"></div>
+	<div id="node_3" class="absolute"></div>
+	<div id="node_4" class="absolute"></div>
+	<button onclick="addNode()">do</button>
+</body>
+<script>
+var i;
+for(i = 0;i < 6;i++)
+{
+	addNode();
+}
+</script>
+</head>
+</html>
