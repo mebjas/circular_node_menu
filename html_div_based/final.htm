@@ -5,19 +5,10 @@
 <script src="js/jquery.js"></script>
 <script>
 $(document).ready(function(){
-	$(".item").mouseover(function(){
-		$("#node_4").clearQueue();
-		$("#node_4").css("-webkit-transform","scale(2)");
-		$("#node_4").css("opacity",".05");
-		$("#node_4").css("border","10px solid red");
+	$(".item,#node_3").mouseover(function(){
 		$("#node_3").clearQueue().css("width","330px").css("height","330px").css("border-radius","175px").css("top","125px").css("left","175px");
 	});
-	$(".item").mouseout(function(){
-		$("#node_4").clearQueue();
-		$("#node_4").css("-webkit-transform","scale(1)");
-		$("#node_4").css("opacity","1");
-		$("#node_4").css("border","none");
-		$("#node_4").css("border-right","10px solid red");
+	$(".item,#node_3").mouseout(function(){
 		$("#node_3").clearQueue().css("width","280px").css("height","280px").css("border-radius","150px").css("top","150px").css("left","200px");
 	});
 });
@@ -158,7 +149,7 @@ body{overflow: hidden;background-image: url(GOT.jpg);min-height: 100%;min-width:
 	z-index: 12;
 	border: 10px solid black;
 	border-right: 10px solid white;
-	-webkit-transition: width .4s ease-out,height .4s ease-out,border-radius  .4s ease-out,top .4s ease-out,left .4s ease-out;
+	-webkit-transition: width .2s ease-out,height .2s ease-out,border-radius  .2s ease-out,top .2s ease-out,left .2s ease-out;
 }
 #node_3:hover,.itembig{
 	cursor: pointer;
@@ -202,24 +193,7 @@ body{overflow: hidden;background-image: url(GOT.jpg);min-height: 100%;min-width:
 	z-index: 18;
 }
 .item:hover>#node_3{background: red}
-#node_4{
-	width: 480px;
-	height: 480px;
-	border: none;
-	border-right: 10px solid red;
-	opacity: .5;
-	background: none;
-	border-radius: 250px;
-	top: 50px;
-	left: 100px;
-	-webkit-transition: -webkit-transform .2s ease-out,opacity .2s ease-out;
-	z-index: 21;
-}
-#node_4:hover{
-	-webkit-transform: scale(2);
-	opacity: .05;
-	border: 10px solid red;
-}
+
 </style>
 <!-- rotate(event) -->
 <body onmousemove="rotate(event)">
@@ -227,12 +201,11 @@ body{overflow: hidden;background-image: url(GOT.jpg);min-height: 100%;min-width:
 	<div id="node_1" class="absolute"></div>
 	<div id="node_2" class="absolute"></div>
 	<div id="node_3" class="absolute"></div>
-	<div id="node_4" class="absolute"></div>
 	<button onclick="addNode()">do</button>
 </body>
 <script>
 var i;
-for(i = 0;i < 6;i++)
+for(i = 0;i <5;i++)
 {
 	addNode();
 }
