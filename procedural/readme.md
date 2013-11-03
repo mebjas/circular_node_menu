@@ -1,3 +1,5 @@
-Canvas based menu
+Circular node menu on canvas
 ======================================
 **procedural method followed**
+
+
